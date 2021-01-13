@@ -5,11 +5,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.bykowski.springsecuritysimplefactorauth.model.AppUser;
 import pl.bykowski.springsecuritysimplefactorauth.model.Token;
 import pl.bykowski.springsecuritysimplefactorauth.repo.AppUserRepo;
 import pl.bykowski.springsecuritysimplefactorauth.repo.TokenRepo;
 import pl.bykowski.springsecuritysimplefactorauth.service.UserService;
-import pl.bykowski.springsecuritysimplefactorauth.model.AppUser;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -64,7 +64,7 @@ public class UserController {
 
     @GetMapping("/token")
     public String signup(@RequestParam String value) {
-        Token byValue = tokenRepo.findByValue(value);
+        Token byValue = tokenRepo.findByValue(value).get();
         AppUser appUser = byValue.getAppUser();
         appUser.setEnabled(true);
         appUserRepo.save(appUser);
